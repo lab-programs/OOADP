@@ -16,7 +16,7 @@ public class ShoppingCart {
     public ArrayList<Item> getItems() { return this.items; }
 
     public void addItem( String name, int quantity, float price ) {
-        items.add( Item( name, quantity, price ) );
+        items.add( new Item( name, quantity, price ) );
     }
 
     public double calculateTax() {
