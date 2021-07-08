@@ -21,12 +21,12 @@ price-schemes having different pricing algorithms. Design & implement.
 public class Client {
     public static void main( String[] args ) {
         Customer myCustomer = new RegularCustomer();
-        System.out.println( "Regular customer discount = " + myCustomer.getDiscount() );
+        System.out.println( "Regular customer discount = " + myCustomer.getDiscount() + "%");
 
         myCustomer = new SeniorCitizen();
-        System.out.println( "Senior Citizen discount = " + myCustomer.getDiscount() );
+        System.out.println( "Senior Citizen discount = " + myCustomer.getDiscount() + "%");
 
         myCustomer = new FirstTimeCustomer();
-        System.out.println( "First Time Customer discount = " + myCustomer.getDiscount() );
+        System.out.println( "First Time Customer discount = " + myCustomer.getDiscount() + "%");
     }
 }
