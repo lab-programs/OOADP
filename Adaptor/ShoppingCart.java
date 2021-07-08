@@ -30,7 +30,7 @@ public class ShoppingCart {
     public double checkout() {
         double total = 0.0;
         for( Item item: items ) {
-            tax += item.calculateTotal(this.tc);
+            total += item.calculateTotal(this.tc);
         }
         return total;
     }
