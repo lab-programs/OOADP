@@ -11,7 +11,12 @@ How will you use the Adaptor Pattern to design & implement?
 
 public class Client {
     public static void main( String[] args ) {
-        String s = "This is a string.";
-        System.out.println(s);
+        ShoppingCart sc = new ShoppingCart(new GST());
+        System.out.println( "Tax with 0 items: " + sc.calculateTax() );
+        System.out.println( "Total with 0 items: " + sc.checkout() );
+        sc.addItem( "Cycle", 1, 15000.0 );
+        sc.addItem( "GBA", 2, 10000.0 );
+        System.out.println( "Tax with 2 items: " + sc.calculateTax() );
+        System.out.println( "Total with 2 items: " + sc.checkout() );
     }
 }
