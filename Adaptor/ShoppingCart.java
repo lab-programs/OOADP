@@ -26,4 +26,12 @@ public class ShoppingCart {
         }
         return tax;
     }
+
+    public double checkout() {
+        double total = 0.0;
+        for( Item item: items ) {
+            tax += item.calculateTotal(this.tc);
+        }
+        return total;
+    }
 }
