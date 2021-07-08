@@ -20,13 +20,29 @@ price-schemes having different pricing algorithms. Design & implement.
 
 public class Client {
     public static void main( String[] args ) {
+
+        double price = 10000;
+        price = ( new StoreLevelDiscount() ).applyDiscount(price);
+
         Customer myCustomer = new RegularCustomer();
         System.out.println( "Regular customer discount = " + myCustomer.getDiscount() + "%");
+        price = price * ( 1 - myCustomer.getDiscount() / 100.0 );
+        System.out.println( "Discounted price = " + price);
+
+        price = 10000;
+        price = ( new StoreLevelDiscount() ).applyDiscount(price);
 
         myCustomer = new SeniorCitizen();
         System.out.println( "Senior Citizen discount = " + myCustomer.getDiscount() + "%");
+        price = price * ( 1 - myCustomer.getDiscount() / 100.0 );
+        System.out.println( "Discounted price = " + price);
+
+        price = 10000;
+        price = ( new StoreLevelDiscount() ).applyDiscount(price);
 
         myCustomer = new FirstTimeCustomer();
         System.out.println( "First Time Customer discount = " + myCustomer.getDiscount() + "%");
+        price = price * ( 1 - myCustomer.getDiscount() / 100.0 );
+        System.out.println( "Discounted price = " + price);
     }
 }
