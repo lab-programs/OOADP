@@ -8,4 +8,8 @@ public class Item {
         this.quantity = quantity;
         this.price = price;
     }
+
+    public double calculateTax( TaxCalculator tc ) {
+        return tc.calculateTax(this.quantity, this.price);
+    }
 }
