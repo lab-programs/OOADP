@@ -1,4 +1,4 @@
-public class StoreLevelDiscount extends Customer {
+public class StoreLevelDiscount {
     private double discount;
 
     public double getDiscount() { return this.discount; }
