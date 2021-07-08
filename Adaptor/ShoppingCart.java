@@ -9,7 +9,7 @@ public class ShoppingCart {
         this.tc = tc;
     }
 
-    public void setTaxCalculator( TaxCaculator tc ) { this.tc = tc; }
+    public void setTaxCalculator( TaxCalculator tc ) { this.tc = tc; }
     public TaxCalculator getTaxCalculator() { return this.tc; }
 
     public void setItems( ArrayList<Item> items ) { this.items = items; }
