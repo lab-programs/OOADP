@@ -12,4 +12,8 @@ public class Item {
     public double calculateTax( TaxCalculator tc ) {
         return tc.calculateTax(this.quantity, this.price);
     }
+
+    public double calculateTotal( TaxCalculator tc ) {
+        return this.quantity * this.price + this.calculateTax(tc);
+    }
 }
