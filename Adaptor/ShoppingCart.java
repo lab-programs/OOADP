@@ -15,7 +15,7 @@ public class ShoppingCart {
     public void setItems( ArrayList<Item> items ) { this.items = items; }
     public ArrayList<Item> getItems() { return this.items; }
 
-    public void addItem( String name, int quantity, float price ) {
+    public void addItem( String name, int quantity, double price ) {
         items.add( new Item( name, quantity, price ) );
     }
 
