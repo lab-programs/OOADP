@@ -1,6 +1,11 @@
 public class RegularCustomer extends Customer {
-    private double discount = 12.0;
 
     public double getDiscount() { return this.discount; }
     public void setDiscount( double discount ) { this.discount = discount; }
+
+    public RegularCustomer( String name, int age ) {
+        this.name = name;
+        this.age = age;
+        this.discount = 12.0;
+    }
 }
