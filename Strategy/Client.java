@@ -20,17 +20,17 @@ price-schemes having different pricing algorithms. Design & implement.
 
 public class Client {
     public static void main( String[] args ) {
-        performPayment(1000.0, "Regular Customer", new RegularCustomer(), new DayOneStoreLevelDiscount());
-        performPayment(3000.0, "Regular Customer", new RegularCustomer(), new DayTwoStoreLevelDiscount());
-        performPayment(1000.0, "Senior Citizen", new SeniorCitizen(), new DayOneStoreLevelDiscount());
-        performPayment(3000.0, "Senior Citizen", new SeniorCitizen(), new DayTwoStoreLevelDiscount());
-        performPayment(1000.0, "First Time Customer", new FirstTimeCustomer(), new DayOneStoreLevelDiscount());
-        performPayment(3000.0, "First Time Customer", new FirstTimeCustomer(), new DayTwoStoreLevelDiscount());
+        performPayment(1000.0, "Regular Customer", new RegularCustomer("A", 1), new DayOneStoreLevelDiscount());
+        performPayment(3000.0, "Regular Customer", new RegularCustomer("B", 3), new DayTwoStoreLevelDiscount());
+        performPayment(1000.0, "Senior Citizen", new SeniorCitizen("A", 1), new DayOneStoreLevelDiscount());
+        performPayment(3000.0, "Senior Citizen", new SeniorCitizen("B", 3), new DayTwoStoreLevelDiscount());
+        performPayment(1000.0, "First Time Customer", new FirstTimeCustomer("A", 1), new DayOneStoreLevelDiscount());
+        performPayment(3000.0, "First Time Customer", new FirstTimeCustomer("B", 3), new DayTwoStoreLevelDiscount());
     }
 
     public static void performPayment( double price, String customerType, Customer customer, StoreLevelDiscount storeLevelDiscount ) {
         price = storeLevelDiscount.applyDiscount(price);
-        System.out.println( customerType + " discount = " + customer.getDiscount + "%" );
+        System.out.println( customerType + " discount = " + customer.getDiscount() + "%" );
         price = price * ( 1 - customer.getDiscount() / 100.0 );
         System.out.println( "Discount price = " + price );
     }
