@@ -1,6 +1,6 @@
-public class StoreLevelDiscount {
-    private double minimumPurchase = 2000.0;
-    private double discountAmount = 100.0;
+public abstract class StoreLevelDiscount {
+    protected double minimumPurchase;
+    protected double discountAmount;
 
     public double getMinimumPurchase() { return this.minimumPurchase; }
     public void setMinimumPurchase( double minimumPurchase ) { this.minimumPurchase = minimumPurchase; }
