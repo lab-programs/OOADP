@@ -4,4 +4,9 @@ public class RegularCustomer extends Customer {
         this.age = age;
         this.displayCalculator = displayCalculator;
     }
+
+    @Override public void display() {
+        System.out.println( "Welcome Regular Customer!" );
+        super.display();
+    }
 }
