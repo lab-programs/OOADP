@@ -1,7 +1,7 @@
 public abstract class Customer {
-    private String name;
-    private int age;
-    private DiscountCalculator discountCalculator;
+    protected String name;
+    protected int age;
+    protected DiscountCalculator discountCalculator;
 
     public void display() {
         System.out.println( "Name: " + this.name );
