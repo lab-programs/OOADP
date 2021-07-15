@@ -1,7 +1,7 @@
 /*
 Bridge (Structural): You get a call from Ms.Masaba Gupta of Bangalore Decathlon
 office that there is a policy decision made globally to introduce discount
-slabs for a whole month twice in a year. The discount month will be in January 
+slabs for a whole month twice in a year. The discount month will be in January
 and July after reviewing the sales made from Feb to June (first five months)
 and Aug to December (last five months) respectively. It is decided to provide
 four slabs of discounts in 2017, namely, 30%, 25%, 20% and 15%, based on the
@@ -19,3 +19,9 @@ Use the Bridge Pattern to design & implement, so that both the Customer Type
 hierarchy of classes as well as the Discount Percentage hierarchy of classes
 can both vary independently? That is, they are not tied to each other.
 */
+
+public class Client {
+    public static void main( String[] args ) {
+        // Stub method
+    }
+}
