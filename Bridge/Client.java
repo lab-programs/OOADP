@@ -22,13 +22,13 @@ can both vary independently? That is, they are not tied to each other.
 
 public class Client {
     public static void main( String[] args ) {
-        TestCustomer( new RegularCustomer( "A", 1 ) );
-        TestCustomer( new FirstTimeCustomer( "A", 1 ) );
-        TestCustomer( new SeniorCitizen( "A", 1 ) );
+        FirstDC firstDC = new FirstDC();
+        TestCustomer( new RegularCustomer( "A", 1, firstDC ) );
+        TestCustomer( new FirstTimeCustomer( "B", 2, firstDC ) );
+        TestCustomer( new SeniorCitizen( "C", 3, firstDC ) );
     }
 
-    public class TestCustomer( Customer customer ) {
-        FirstDC firstDC = new FirstDC();
+    public static void TestCustomer( Customer customer ) {
         SecondDC secondDC = new SecondDC();
         customer.display();
         System.out.println( "1000 after discount: " + customer.calculateBill(1000) );
