@@ -1,8 +1,8 @@
 public class RegularCustomer extends Customer {
-    public RegularCustomer( String name, int age, DisplayCalculator displayCalculator ) {
+    public RegularCustomer( String name, int age, DisplayCalculator discountCalculator ) {
         this.name = name;
         this.age = age;
-        this.displayCalculator = displayCalculator;
+        this.discountCalculator = discountCalculator;
     }
 
     @Override public void display() {
