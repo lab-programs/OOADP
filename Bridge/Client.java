@@ -22,6 +22,17 @@ can both vary independently? That is, they are not tied to each other.
 
 public class Client {
     public static void main( String[] args ) {
-        // Stub method
+        TestCustomer( new RegularCustomer( "A", 1 ) );
+        TestCustomer( new FirstTimeCustomer( "A", 1 ) );
+        TestCustomer( new SeniorCitizen( "A", 1 ) );
+    }
+
+    public class TestCustomer( Customer customer ) {
+        FirstDC firstDC = new FirstDC();
+        SecondDC secondDC = new SecondDC();
+        customer.display();
+        System.out.println( "1000 after discount: " + customer.calculateBill(1000) );
+        customer.setDiscountCalculator(secondDC);
+        System.out.println( "1000 after discount: " + customer.calculateBill(1000) );
     }
 }
