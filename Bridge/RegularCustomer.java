@@ -1,5 +1,5 @@
 public class RegularCustomer extends Customer {
-    public RegularCustomer( String name, int age, DisplayCalculator discountCalculator ) {
+    public RegularCustomer( String name, int age, DiscountCalculator discountCalculator ) {
         this.name = name;
         this.age = age;
         this.discountCalculator = discountCalculator;
