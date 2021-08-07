@@ -1,14 +1,12 @@
 public class Client {
     public static void main( String[] args ) {
-        TestCustomer( new Kid("A", 1) );
-        TestCustomer( new Teen("B", 13) );
-        TestCustomer( new Adult("C", 18) );
-        TestCustomer( new Senior("D", 61) );
-    }
-
-    public static void TestCustomer( Customer customer ) {
-        System.out.println("-------------------------");
-        customer.details();
-        System.out.println("-------------------------");
+        try {
+            CustomerFactory.get( AgeCategory.kid, "A", 1 ).details();
+            CustomerFactory.get( AgeCategory.teen, "B", 13 ).details();
+            CustomerFactory.get( AgeCategory.adult, "C", 18 ).details();
+            CustomerFactory.get( AgeCategory.senior, "D", 61 ).details();
+        } catch( Exception e ) {
+            e.printStackTrace();
+        }
     }
 }
