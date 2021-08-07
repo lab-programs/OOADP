@@ -442,7 +442,22 @@ public class FirstTimeCustomer extends Customer {
     }
 }
 // Client.java
+public class Client {
+    public static void main( String[] args ) {
+        FirstDC firstDC = new FirstDC();
+        TestCustomer( new RegularCustomer( "A", 1, firstDC ) );
+        TestCustomer( new FirstTimeCustomer( "B", 2, firstDC ) );
+        TestCustomer( new SeniorCitizen( "C", 3, firstDC ) );
+    }
 
+    public static void TestCustomer( Customer customer ) {
+        SecondDC secondDC = new SecondDC();
+        customer.display();
+        System.out.println( "1000 after discount using FirstDC: " + customer.calculateBill(1000) );
+        customer.setDiscountCalculator(secondDC);
+        System.out.println( "1000 after discount using SecondDC: " + customer.calculateBill(1000) );
+    }
+}
 ```
 
 ### 1. Adaptor (Structural)
