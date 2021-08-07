@@ -19,11 +19,12 @@ public class Client {
         sc.addItem( "GBA", 2, 10000.0 );
         System.out.println( "Tax with 2 items: " + sc.calculateTax() );
         System.out.println( "Total with 2 items: " + sc.checkout() );
-
-        sc.setTaxCalculator(new MauriTaxAdaptor());
+        sc = new ShoppingCart(new MauriTaxAdaptor());
         System.out.println( " ===== Using MauriTaxAdaptor ===== ");
         System.out.println( "Tax with 0 items: " + sc.calculateTax() );
         System.out.println( "Total with 0 items: " + sc.checkout() );
+        sc.addItem( "Cycle", 1, 15000.0 );
+        sc.addItem( "GBA", 2, 10000.0 );
         System.out.println( "Tax with 2 items: " + sc.calculateTax() );
         System.out.println( "Total with 2 items: " + sc.checkout() );
     }
