@@ -250,71 +250,91 @@ of concrete implementation of objects. Design and implement using this.
 #### Program
 
 ```java
-// CalcTax.java
-public interface CalcTax {
-	double taxAmount(String item, int qty, double price);
+// AgeCategory.java
+public enum AgeCategory {
+    kid("Kid"),
+    teen("Teen"),
+    adult("Adult"),
+    senior("Senior");
+
+    private final String text;
+    AgeCategory( final String text ) { this.text = text; }
+    @Override public String toString() { return text; }
 }
-// NewMauritiusTax.java
-public class NewMauritiusTax {
-	double calcTax(int qntty, double price) {
-		return price*qntty*(0.25f);
-	}
+// Customer.java
+public abstract class Customer {
+    protected String name;
+    protected int age;
+    protected AgeCategory category;
+
+    public Customer( String name, int age ) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public void details() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Category: " + category);
+    }
 }
-// MyMauritiusTax.java
-public class MyMauritiusTax implements CalcTax {
-	NewMauritiusTax mt = new NewMauritiusTax();
-	double tax_amount=0.0;
-	@Override
-	public double taxAmount(String item, int qty, double price) {
-		tax_amount = mt.calcTax(qty, price);
-		return tax_amount;
-	}
+// Kid.java
+public class Kid extends Customer {
+    public Kid( String name, int age ) {
+        super( name, age );
+        super.category = AgeCategory.kid;
+    }
 }
-// SwedenTax.java
-public class SwedenTax implements CalcTax {
-	double tax_amount=0.0;
-	public double taxAmount(String item, int qty, double price) {
-		tax_amount = price*qty*0.05f;
-		return tax_amount;
-	}
+// Teen.java
+public class Teen extends Customer {
+    public Teen( String name, int age ) {
+        super( name, age );
+        super.category = AgeCategory.teen;
+    }
 }
-// Item.java
-public class Item {
-	String name;
-	double price=0.0;
-	int qty=0;
-	double billAmount=0.0;
-	CalcTax ct;
-	Item(String name, double price, CalcTax ct){
-		this.name = name;
-		this.price = price;
-		this.ct = ct;
-	}
-	void setTax(CalcTax ct) {
-		this.ct = ct;
-	}
-	void setQunatity(int qty) {
-		this.qty = qty;
-	}
-	void printPrice() {
-		double tax = ct.taxAmount(name, qty, price);
-		
-		billAmount = price*qty+tax;
-		System.out.println("Tax = "+tax);
-		System.out.println("Item "+ name + " Quantity "+qty+
-		" Unit price "+price+ " Total Amount "+billAmount);
-	}
+// Adult.java
+public class Adult extends Customer {
+    public Adult( String name, int age ) {
+        super( name, age );
+        super.category = AgeCategory.adult;
+    }
 }
-// TaxAdapterDemo.java
-public class TaxAdapterDemo {
-	public static void main(String[] args) {
-		SwedenTax st = new SwedenTax();
-		Item i1 = new Item("Btwin Roackroder 340", 13999.0, st);
-		i1.setQunatity(3);
-		i1.printPrice();
-		i1.setTax(new MyMauritiusTax());
-		i1.printPrice();
-	}
+// Senior.java
+public class Senior extends Customer {
+    public Senior( String name, int age ) {
+        super( name, age );
+        super.category = AgeCategory.senior;
+    }
+}
+// CustomerFactory.java
+public class CustomerFactory {
+    private static class InvalidAgeCategoryException extends Exception {
+        public InvalidAgeCategoryException( String message ) {
+            super(message);
+        }
+    }
+    public static Customer get( AgeCategory ageCategory, String name, int age ) throws InvalidAgeCategoryException {
+        switch( ageCategory ) {
+            case kid: return new Kid( name, age );
+            case teen: return new Teen( name, age );
+            case adult: return new Adult( name, age );
+            case senior: return new Senior( name, age );
+            default: throw( new InvalidAgeCategoryException( "You have entered invalid age category" ) );
+        }
+    }
+}
+// Client.java
+public class Client {
+    public static void main( String[] args ) {
+        try {
+            CustomerFactory.get( AgeCategory.kid, "A", 1 ).details();
+            CustomerFactory.get( AgeCategory.teen, "B", 13 ).details();
+            CustomerFactory.get( AgeCategory.adult, "C", 18 ).details();
+            CustomerFactory.get( AgeCategory.senior, "D", 61 ).details();
+        } catch( Exception e ) {
+            e.printStackTrace();
+        }
+    }
 }
 ```
 
