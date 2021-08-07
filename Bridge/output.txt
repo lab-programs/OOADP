@@ -1,0 +1,15 @@
+Welcome Regular Customer!
+Name: A
+Age: 1
+1000 after discount using FirstDC: 750.0
+1000 after discount using SecondDC: 700.0
+Welcome First Time Customer!
+Name: B
+Age: 2
+1000 after discount using FirstDC: 750.0
+1000 after discount using SecondDC: 700.0
+Welcome Senior Citizen!
+Name: C
+Age: 3
+1000 after discount using FirstDC: 750.0
+1000 after discount using SecondDC: 700.0
