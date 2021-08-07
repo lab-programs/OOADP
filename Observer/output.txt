@@ -1,0 +1,26 @@
+-----------------DIWALI-----------------
+For Indian Customers: 
+Festive Discount Details:
+Festival: Diwali
+Discount: 10
+Start Date: 06-11-21
+End Date: 09-11-21
+For Sri Lankan Customers: 
+Festive Discount Details:
+Festival: Diwali
+Discount: 10
+Start Date: 06-11-21
+End Date: 09-11-21
+---------------CHRISTMAS----------------
+For Indian Customers: 
+Festive Discount Details:
+Festival: Christmas
+Discount: 15
+Start Date: 24-12-21
+End Date: 25-12-21
+For Sri Lankan Customers: 
+Festive Discount Details:
+Festival: Christmas
+Discount: 15
+Start Date: 24-12-21
+End Date: 25-12-21
