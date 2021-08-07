@@ -1,12 +1,12 @@
 public class Client {
-    public static void main( String[] args ) {
-        private class A extends Customer {
-            A( String name, int age ) {
-                super( name, age );
-                super.category = AgeCategory.kid;
-            }
+    private static class A extends Customer {
+        A( String name, int age ) {
+            super( name, age );
+            super.category = AgeCategory.kid;
         }
-        A a = new A();
+    }
+    public static void main( String[] args ) {
+        A a = new A("A", 1);
         a.details();
     }
 }
