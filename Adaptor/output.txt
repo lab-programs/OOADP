@@ -1,0 +1,10 @@
+ ===== Using GST ===== 
+Tax with 0 items: 0.0
+Total with 0 items: 0.0
+Tax with 2 items: 6300.0
+Total with 2 items: 41300.0
+ ===== Using MauriTaxAdaptor ===== 
+Tax with 0 items: 0.0
+Total with 0 items: 0.0
+Tax with 2 items: 4900.0
+Total with 2 items: 39900.0
