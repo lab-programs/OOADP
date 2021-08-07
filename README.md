@@ -460,85 +460,109 @@ public class Client {
 }
 ```
 
-### 1. Adaptor (Structural)
+### 5. Observer (Behavioural)
 
 #### Question
 
-**Adaptor (Structural):** To establish the 1st Decathlon store in Mauritius, you go along
-with Mr. Satya Nadella, an expert in finding 3rd-party partners. For e.g. a 3rd-party 
-TaxCalculator system to cater to the specifics of Sales and VAT (Value-added services Tax)
-tax calculations in different countries. He finds a 3rd-party Tax-Calculator system called
-‘MauriTax’ in Port Louis. The problem is, the APIs used by ‘MauriTax’ for tax-calculation
-is fixed & cannot be changed. The ‘MauriTax’ APIs are incompatible with ‘Decathlon
-POS’. How will you use the Adaptor Pattern to design & implement?
+**Observer (Behavioural):** There will be different discounts being offered 
+for the sports items in Decathlon Stores across the globe for different 
+festivals being celebrated in the various countries these stores are 
+established. Assume that the Decathlon Chain of Stores fixes a particular 
+discount slab for its items for a festival of a country.
+Use the Observer Pattern to design and implement a system to notify the 
+customers of the Decathlon stores of that country about the various festival/
+seasonal discount rates as and when they are announced.
 
 #### Program
 
 ```java
-// CalcTax.java
-public interface CalcTax {
-	double taxAmount(String item, int qty, double price);
+// DiscountSlab.java
+public class DiscountSlab {
+    protected int discount;
+    protected String festival;
+    protected String start, end;
+
+    public DiscountSlab( int discount, String festival, String start, String end ) {
+        this.discount = discount;
+        this.festival = festival;
+        this.start = start;
+        this.end = end;
+    }
 }
-// NewMauritiusTax.java
-public class NewMauritiusTax {
-	double calcTax(int qntty, double price) {
-		return price*qntty*(0.25f);
-	}
+// DecathlonObserver.java
+public class DecathlonObserver {
+    private DiscountSlab discountSlab;
+    
+    public DecathlonObserver( DecathlonSubject subject ) {
+        this.discountSlab = subject.getDiscountSlab();
+        subject.attach(this);
+    }
+
+    public void update( DiscountSlab discountSlab ) {
+        this.discountSlab = discountSlab;
+    }
+
+    private void print( Object o ) { System.out.println( o ); }
+
+    public void display() {
+        print( "Festive Discount Details:" );
+        print( "Festival: " + this.discountSlab.festival );
+        print( "Discount: " + this.discountSlab.discount );
+        print( "Start Date: " + this.discountSlab.start );
+        print( "End Date: " + this.discountSlab.end );
+    }
 }
-// MyMauritiusTax.java
-public class MyMauritiusTax implements CalcTax {
-	NewMauritiusTax mt = new NewMauritiusTax();
-	double tax_amount=0.0;
-	@Override
-	public double taxAmount(String item, int qty, double price) {
-		tax_amount = mt.calcTax(qty, price);
-		return tax_amount;
-	}
+// DecathlonSubject.java
+import java.util.ArrayList;
+
+public class DecathlonSubject {
+    private DiscountSlab discountSlab;
+    private ArrayList<DecathlonObserver> observers;
+
+    public DecathlonSubject( DiscountSlab discountSlab ) {
+        this.discountSlab = discountSlab;
+        this.observers = new ArrayList<DecathlonObserver>();
+    }
+
+    public void attach( DecathlonObserver decathlonObserver ) { observers.add( decathlonObserver ); }
+    
+    public void notifyObservers() {
+        for( DecathlonObserver observer: observers ) {
+            observer.update(this.discountSlab);
+        }
+    }
+    public DiscountSlab getDiscountSlab() { return this.discountSlab; }
+    public void setDiscountSlab( DiscountSlab discountSlab ) { 
+        this.discountSlab = discountSlab; 
+        this.notifyObservers();
+    }
 }
-// SwedenTax.java
-public class SwedenTax implements CalcTax {
-	double tax_amount=0.0;
-	public double taxAmount(String item, int qty, double price) {
-		tax_amount = price*qty*0.05f;
-		return tax_amount;
-	}
-}
-// Item.java
-public class Item {
-	String name;
-	double price=0.0;
-	int qty=0;
-	double billAmount=0.0;
-	CalcTax ct;
-	Item(String name, double price, CalcTax ct){
-		this.name = name;
-		this.price = price;
-		this.ct = ct;
-	}
-	void setTax(CalcTax ct) {
-		this.ct = ct;
-	}
-	void setQunatity(int qty) {
-		this.qty = qty;
-	}
-	void printPrice() {
-		double tax = ct.taxAmount(name, qty, price);
-		
-		billAmount = price*qty+tax;
-		System.out.println("Tax = "+tax);
-		System.out.println("Item "+ name + " Quantity "+qty+
-		" Unit price "+price+ " Total Amount "+billAmount);
-	}
-}
-// TaxAdapterDemo.java
-public class TaxAdapterDemo {
-	public static void main(String[] args) {
-		SwedenTax st = new SwedenTax();
-		Item i1 = new Item("Btwin Roackroder 340", 13999.0, st);
-		i1.setQunatity(3);
-		i1.printPrice();
-		i1.setTax(new MyMauritiusTax());
-		i1.printPrice();
-	}
+// Client.java
+public class Client {
+    private static void print( Object o ) {
+        System.out.println( o );
+    }
+    public static void main( String[] args ) {
+        DiscountSlab discount = new DiscountSlab( 10, "Diwali", "06-11-21", "09-11-21" );
+        DecathlonSubject sale = new DecathlonSubject( discount );
+
+        DecathlonObserver indiaCustomer = new DecathlonObserver(sale);
+        DecathlonObserver sriLankaCustomer = new DecathlonObserver(sale);
+
+        print( "-----------------DIWALI-----------------");
+        print( "For Indian Customers: " );
+        indiaCustomer.display();
+        print( "For Sri Lankan Customers: " );
+        sriLankaCustomer.display();
+
+        discount = new DiscountSlab( 15, "Christmas", "24-12-21", "25-12-21" );
+        sale.setDiscountSlab(discount);
+
+        print( "---------------CHRISTMAS----------------");
+        print( "For Indian Customers: " );
+        indiaCustomer.display();
+        print( "For Sri Lankan Customers: " );
+        sriLankaCustomer.display();
+    }
 }
 ```
