@@ -1,0 +1,12 @@
+Regular Customer discount = 12.0%
+Discount price = 880.0
+Regular Customer discount = 12.0%
+Discount price = 2464.0
+Senior Citizen discount = 10.0%
+Discount price = 900.0
+Senior Citizen discount = 10.0%
+Discount price = 2520.0
+First Time Customer discount = 15.0%
+Discount price = 850.0
+First Time Customer discount = 15.0%
+Discount price = 2380.0
