@@ -237,13 +237,15 @@ public class Client {
 
 #### Question
 
-**Adaptor (Structural):** To establish the 1st Decathlon store in Mauritius, you go along
-with Mr. Satya Nadella, an expert in finding 3rd-party partners. For e.g. a 3rd-party 
-TaxCalculator system to cater to the specifics of Sales and VAT (Value-added services Tax)
-tax calculations in different countries. He finds a 3rd-party Tax-Calculator system called
-‘MauriTax’ in Port Louis. The problem is, the APIs used by ‘MauriTax’ for tax-calculation
-is fixed & cannot be changed. The ‘MauriTax’ APIs are incompatible with ‘Decathlon
-POS’. How will you use the Adaptor Pattern to design & implement?
+**Factory Method (Creational):** The ‘Decathlon POS’ software system classifies its 
+customers as senior-citizens (60 and above), First-Time customers, Regular Customers. 
+There is a very high possibility that the Customer Type hierarchy will vary, depending 
+upon the sales-pattern. For e.g. there could be the need to introduce new categories 
+based on the customer gender, different age groups for kids (0-5, 6-12), teenagers 
+(13-19) and age groups between 20 to 60(Twenties, 30s, 40s and 50s). You are advised 
+by Mr.Sundar Pichai, the technical architect of your team, whom you trust, to use 
+Factory Method Pattern in order to instantiate the above Customer Type hierarchy 
+of concrete implementation of objects. Design and implement using this.
 
 #### Program
 
