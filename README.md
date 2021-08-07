@@ -342,72 +342,85 @@ other.
 #### Program
 
 ```java
-// CalcTax.java
-public interface CalcTax {
-	double taxAmount(String item, int qty, double price);
+// DiscountCalculator.java
+public abstract class DiscountCalculator {
+    protected double discount;
+    public double applyDiscount( double amount ) {
+        return amount - amount * discount;
+    }
 }
-// NewMauritiusTax.java
-public class NewMauritiusTax {
-	double calcTax(int qntty, double price) {
-		return price*qntty*(0.25f);
-	}
+// FirstDC.java
+public class FirstDC extends DiscountCalculator {
+    public FirstDC() {
+        this.discount = 0.25;
+    }
 }
-// MyMauritiusTax.java
-public class MyMauritiusTax implements CalcTax {
-	NewMauritiusTax mt = new NewMauritiusTax();
-	double tax_amount=0.0;
-	@Override
-	public double taxAmount(String item, int qty, double price) {
-		tax_amount = mt.calcTax(qty, price);
-		return tax_amount;
-	}
+// SecondDC.java
+public class SecondDC extends DiscountCalculator {
+    public SecondDC() {
+        this.discount = 0.30;
+    }
 }
-// SwedenTax.java
-public class SwedenTax implements CalcTax {
-	double tax_amount=0.0;
-	public double taxAmount(String item, int qty, double price) {
-		tax_amount = price*qty*0.05f;
-		return tax_amount;
-	}
+// Customer.java
+public abstract class Customer {
+    protected String name;
+    protected int age;
+    protected DiscountCalculator discountCalculator;
+
+    public void display() {
+        System.out.println( "Name: " + this.name );
+        System.out.println( "Age: " + this.age );
+    }
+
+    public void setDiscountCalculator( DiscountCalculator discountCalculator ) {
+        this.discountCalculator = discountCalculator;
+    }
+
+    public double calculateBill( double amount ) {
+        return this.discountCalculator.applyDiscount(amount);
+    }
 }
-// Item.java
-public class Item {
-	String name;
-	double price=0.0;
-	int qty=0;
-	double billAmount=0.0;
-	CalcTax ct;
-	Item(String name, double price, CalcTax ct){
-		this.name = name;
-		this.price = price;
-		this.ct = ct;
-	}
-	void setTax(CalcTax ct) {
-		this.ct = ct;
-	}
-	void setQunatity(int qty) {
-		this.qty = qty;
-	}
-	void printPrice() {
-		double tax = ct.taxAmount(name, qty, price);
-		
-		billAmount = price*qty+tax;
-		System.out.println("Tax = "+tax);
-		System.out.println("Item "+ name + " Quantity "+qty+
-		" Unit price "+price+ " Total Amount "+billAmount);
-	}
+// RegularCustomer.java
+public class RegularCustomer extends Customer {
+    public RegularCustomer( String name, int age, DiscountCalculator discountCalculator ) {
+        this.name = name;
+        this.age = age;
+        this.discountCalculator = discountCalculator;
+    }
+
+    @Override public void display() {
+        System.out.println( "Welcome Regular Customer!" );
+        super.display();
+    }
 }
-// TaxAdapterDemo.java
-public class TaxAdapterDemo {
-	public static void main(String[] args) {
-		SwedenTax st = new SwedenTax();
-		Item i1 = new Item("Btwin Roackroder 340", 13999.0, st);
-		i1.setQunatity(3);
-		i1.printPrice();
-		i1.setTax(new MyMauritiusTax());
-		i1.printPrice();
-	}
+// SeniorCitizen.java
+public class SeniorCitizen extends Customer {
+    public SeniorCitizen( String name, int age, DiscountCalculator discountCalculator ) {
+        this.name = name;
+        this.age = age;
+        this.discountCalculator = discountCalculator;
+    }
+
+    @Override public void display() {
+        System.out.println( "Welcome Senior Citizen!" );
+        super.display();
+    }
 }
+// FirstTimeCustomer.java
+public class FirstTimeCustomer extends Customer {
+    public FirstTimeCustomer( String name, int age, DiscountCalculator discountCalculator ) {
+        this.name = name;
+        this.age = age;
+        this.discountCalculator = discountCalculator;
+    }
+
+    @Override public void display() {
+        System.out.println( "Welcome First Time Customer!" );
+        super.display();
+    }
+}
+// Client.java
+
 ```
 
 ### 1. Adaptor (Structural)
