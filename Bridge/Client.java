@@ -31,8 +31,8 @@ public class Client {
     public static void TestCustomer( Customer customer ) {
         SecondDC secondDC = new SecondDC();
         customer.display();
-        System.out.println( "1000 after discount: " + customer.calculateBill(1000) );
+        System.out.println( "1000 after discount using FirstDC: " + customer.calculateBill(1000) );
         customer.setDiscountCalculator(secondDC);
-        System.out.println( "1000 after discount: " + customer.calculateBill(1000) );
+        System.out.println( "1000 after discount using SecondDC: " + customer.calculateBill(1000) );
     }
 }
