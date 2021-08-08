@@ -567,7 +567,7 @@ public class Client {
 }
 ```
 
-### 5. Façade (Structural)
+### 6. Façade (Structural)
 
 #### Question
 
@@ -756,6 +756,135 @@ public class Client {
         sales.inputGiftCertificate();
         sales.inputItems();
         sales.processSales();
+    }
+}
+```
+
+
+### 7. Façade (Structural)
+
+#### Question
+
+**Abstract Factory (Creational):** As an analyst in charge of designing the 
+Decathlon POS Software, you realize the need to streamline the creation of 
+objects belonging to different products in the Decathlon store. There are 
+two major categories of products:
+a) For differently abled sports enthusiasts
+b) For able-bodied sports enthusiasts
+In each of the above categories there are products for outdoor adventure 
+sports (e.g. trekking, para-gliding, bungee-jumping etc.), outdoor regular 
+games (cricket, football, baseball etc.) indoor regular games (table tennis, 
+squash etc.). There is a possibility of further class/object instantiation 
+explosion with categories such as male & female sports enthusiasts and 
+different equipment for them. Objects need to be instantiated based on 
+these categories. Design & implement using Abstract Factory.
+
+#### Program
+
+```java
+public enum IR {
+    squash;
+}
+public enum OA {
+    trekking;
+}
+public enum OR {
+    cricket;
+}
+public interface IndoorRegular {
+    public void display();
+}
+public interface OutdoorAdventure {
+    public void display();
+}
+public interface OutdoorRegular {
+    public void display();
+}
+public interface SportFactory {
+    public OutdoorAdventure outdoorAdventure( OA oa );
+    public OutdoorRegular outdoorRegular( OR or );
+    public IndoorRegular indoorRegular( IR ir );
+}
+public class CricketA implements OutdoorRegular {
+    public void display() {
+        System.out.println("Cricket for able bodied");
+    }
+}
+public class CricketD implements OutdoorRegular {
+    public void display() {
+        System.out.println("Cricket for differently able bodied");
+    }
+}
+public class SquashA implements IndoorRegular {
+    public void display() {
+        System.out.println("Squash for able bodied");
+    }
+}
+public class SquashD implements IndoorRegular {
+    public void display() {
+        System.out.println("Squash for differently able bodied");
+    }
+}
+public class TrekkingA implements OutdoorAdventure {
+    public void display() {
+        System.out.println("Trekking for able bodied");
+    }
+}
+public class TrekkingD implements OutdoorAdventure {
+    public void display() {
+        System.out.println("Trekking for differently able bodied");
+    }
+}
+public class AbleFactory implements SportFactory {
+    public OutdoorAdventure outdoorAdventure( OA oa ) {
+        switch( oa ) {
+            case trekking: return new TrekkingA();
+            default: return null;
+        }
+    }
+    public OutdoorRegular outdoorRegular( OR or ) {
+        switch( or ) {
+            case cricket: return new CricketA();
+            default: return null;
+        }
+    }
+    public IndoorRegular indoorRegular( IR ir ) {
+        switch( ir ) {
+            case squash: return new SquashA();
+            default: return null;
+        }
+    }
+}
+public class DifferentlyAbleFactory implements SportFactory {
+    public OutdoorAdventure outdoorAdventure( OA oa ) {
+        switch( oa ) {
+            case trekking: return new TrekkingD();
+            default: return null;
+        }
+    }
+    public OutdoorRegular outdoorRegular( OR or ) {
+        switch( or ) {
+            case cricket: return new CricketD();
+            default: return null;
+        }
+    }
+    public IndoorRegular indoorRegular( IR ir ) {
+        switch( ir ) {
+            case squash: return new SquashD();
+            default: return null;
+        }
+    }
+}
+public class Client {
+    public static void main( String[] args ) {
+        SportFactory f = new AbleFactory();
+        f.outdoorAdventure(OA.trekking).display();
+        f.outdoorRegular(OR.cricket).display();
+        f.indoorRegular(IR.squash).display();
+        f = new DifferentlyAbleFactory();
+        f.outdoorAdventure(OA.trekking).display();
+        f.outdoorRegular(OR.cricket).display();
+        f.indoorRegular(IR.squash).display();
     }
 }
 ```
