@@ -594,93 +594,168 @@ vendor, the implementation details are not known to you?
 #### Program
 
 ```java
-// DiscountSlab.java
-public class DiscountSlab {
-    protected int discount;
-    protected String festival;
-    protected String start, end;
+// GiftCertificate.java
+public class GiftCertificate {
+    private String id;
+    private int value;
 
-    public DiscountSlab( int discount, String festival, String start, String end ) {
-        this.discount = discount;
-        this.festival = festival;
-        this.start = start;
-        this.end = end;
+    public GiftCertificate( String id, int value ) {
+        this.id = id;
+        this.value = value;
     }
+
+    public String getID() { return id; }
+    public int getValue() { return value; }
+    public void setValue( int value ) { this.value = value; }
 }
-// DecathlonObserver.java
-public class DecathlonObserver {
-    private DiscountSlab discountSlab;
-    
-    public DecathlonObserver( DecathlonSubject subject ) {
-        this.discountSlab = subject.getDiscountSlab();
-        subject.attach(this);
-    }
-
-    public void update( DiscountSlab discountSlab ) {
-        this.discountSlab = discountSlab;
-    }
-
-    private void print( Object o ) { System.out.println( o ); }
-
-    public void display() {
-        print( "Festive Discount Details:" );
-        print( "Festival: " + this.discountSlab.festival );
-        print( "Discount: " + this.discountSlab.discount );
-        print( "Start Date: " + this.discountSlab.start );
-        print( "End Date: " + this.discountSlab.end );
-    }
-}
-// DecathlonSubject.java
+// ShoppingCart.java
+import java.util.Scanner;
 import java.util.ArrayList;
 
-public class DecathlonSubject {
-    private DiscountSlab discountSlab;
-    private ArrayList<DecathlonObserver> observers;
+public class SalesFacade {
+    private ShoppingCart cart;
+    private ProcessSales processor;
+    private Scanner sc;
 
-    public DecathlonSubject( DiscountSlab discountSlab ) {
-        this.discountSlab = discountSlab;
-        this.observers = new ArrayList<DecathlonObserver>();
+    public SalesFacade() {
+        cart = new ShoppingCart();
+        processor = new ProcessSales(null, cart);
+        sc = new Scanner( System.in );
     }
 
-    public void attach( DecathlonObserver decathlonObserver ) { observers.add( decathlonObserver ); }
-    
-    public void notifyObservers() {
-        for( DecathlonObserver observer: observers ) {
-            observer.update(this.discountSlab);
+    private void print( Object o ) {
+        System.out.println( o );
+    }
+
+    public void inputGiftCertificate() {
+        print( "Enter GiftCertificate ID: " );
+        String id = sc.next();
+        print( "Enter GifrCertificate Value: " );
+        int value = sc.nextInt();
+        this.processor.certificate = new GiftCertificate( id, value );
+    }
+
+    public void inputItems() {
+        ArrayList<ShoppingCart.Item> items;
+        print( "Enter number of items: " );
+        int size = sc.nextInt();
+        items = new ArrayList<ShoppingCart.Item>(size);
+        String _name;
+        int _price;
+        for( int i=0; i<size; i++ ) {
+            print("Enter name of item " + (i+1) + ": ");
+            _name = sc.next();
+            print("Enter price of item " + (i+1) + ": ");
+            _price = sc.nextInt();
+            items.add(new ShoppingCart.Item(_name, _price));
+        }
+        processor.cart.items = items;
+    }
+
+    public void processSales() {
+        processor.process();
+    }
+}
+// ProcessSales.java
+public class ProcessSales {
+    GiftCertificate certificate = null;
+    ShoppingCart cart;
+
+    public ProcessSales( ShoppingCart cart ) {
+        this.cart = cart;
+    }
+    public ProcessSales( GiftCertificate certificate, ShoppingCart cart ) {
+        this.certificate = certificate;
+        this.cart = cart;
+    }
+
+    private void print( Object o ) {
+        System.out.println( o );
+    }
+    public void process() {
+        if( this.certificate == null ) {
+            print( "You don't have the gift certificate. " );
+            print( " You have to pay amount: " + this.cart.totalAmount() );
+        }
+        else if( this.cart.items.size() > 1 ) {
+            print( "You have bought more than one item. ");
+            print( "You can not apply gift certificate. ");
+            print( "You have to pay amount: " + this.cart.totalAmount() );
+        }
+        else if( this.cart.items.size() <= 0 ) {
+            print( "You have not bought any items." );
+        }
+        else if( this.cart.totalAmount() <= this.certificate.getValue() ) {
+            print( "You don't have to pay for this. It will be deducted from your gift card." );
+            print( "Your Gift Certificate " + this.certificate.getID() + " Applied." );
+            this.certificate.setValue( this.certificate.getValue() - this.cart.totalAmount() );
+            print( "Your Gift Certificate Balance: " + this.certificate.getValue() );
+            print( "No cashback is provided." );
+        }
+        else {
+            print( "Your Gift Certificate " + this.certificate.getID() + " Applied." );
+            int remainingAmount = this.cart.totalAmount() - this.certificate.getValue();
+            this.certificate.setValue(0);
+            print( "Your Gift Certificate Balance: " + this.certificate.getValue() );
+            print( "You have to pay amount: " + remainingAmount + " using cash only.");
         }
     }
-    public DiscountSlab getDiscountSlab() { return this.discountSlab; }
-    public void setDiscountSlab( DiscountSlab discountSlab ) { 
-        this.discountSlab = discountSlab; 
-        this.notifyObservers();
+}
+// SalesFacade.java 
+import java.util.Scanner;
+import java.util.ArrayList;
+
+public class SalesFacade {
+    private ShoppingCart cart;
+    private ProcessSales processor;
+    private Scanner sc;
+
+    public SalesFacade() {
+        cart = new ShoppingCart();
+        processor = new ProcessSales(null, cart);
+        sc = new Scanner( System.in );
+    }
+
+    private void print( Object o ) {
+        System.out.println( o );
+    }
+
+    public void inputGiftCertificate() {
+        print( "Enter GiftCertificate ID: " );
+        String id = sc.next();
+        print( "Enter GifrCertificate Value: " );
+        int value = sc.nextInt();
+        this.processor.certificate = new GiftCertificate( id, value );
+    }
+
+    public void inputItems() {
+        ArrayList<ShoppingCart.Item> items;
+        print( "Enter number of items: " );
+        int size = sc.nextInt();
+        items = new ArrayList<ShoppingCart.Item>(size);
+        String _name;
+        int _price;
+        for( int i=0; i<size; i++ ) {
+            print("Enter name of item " + (i+1) + ": ");
+            _name = sc.next();
+            print("Enter price of item " + (i+1) + ": ");
+            _price = sc.nextInt();
+            items.add(new ShoppingCart.Item(_name, _price));
+        }
+        processor.cart.items = items;
+    }
+
+    public void processSales() {
+        processor.process();
     }
 }
 // Client.java
 public class Client {
-    private static void print( Object o ) {
-        System.out.println( o );
-    }
-    public static void main( String[] args ) {
-        DiscountSlab discount = new DiscountSlab( 10, "Diwali", "06-11-21", "09-11-21" );
-        DecathlonSubject sale = new DecathlonSubject( discount );
-
-        DecathlonObserver indiaCustomer = new DecathlonObserver(sale);
-        DecathlonObserver sriLankaCustomer = new DecathlonObserver(sale);
-
-        print( "-----------------DIWALI-----------------");
-        print( "For Indian Customers: " );
-        indiaCustomer.display();
-        print( "For Sri Lankan Customers: " );
-        sriLankaCustomer.display();
-
-        discount = new DiscountSlab( 15, "Christmas", "24-12-21", "25-12-21" );
-        sale.setDiscountSlab(discount);
-
-        print( "---------------CHRISTMAS----------------");
-        print( "For Indian Customers: " );
-        indiaCustomer.display();
-        print( "For Sri Lankan Customers: " );
-        sriLankaCustomer.display();
+    public static void main(String[] args) {
+        SalesFacade sales = new SalesFacade();
+        sales.inputGiftCertificate();
+        sales.inputItems();
+        sales.processSales();
     }
 }
 ```
