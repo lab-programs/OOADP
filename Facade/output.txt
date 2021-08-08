@@ -1,0 +1,57 @@
+Enter GiftCertificate ID: 
+abc
+Enter GifrCertificate Value: 
+100
+Enter number of items: 
+2
+Enter name of item 1: 
+abc
+Enter price of item 1: 
+200
+Enter name of item 2: 
+def
+Enter price of item 2: 
+300
+You have bought more than one item. 
+You can not apply gift certificate. 
+You have to pay amount: 500
+
+
+Enter GiftCertificate ID: 
+abc
+Enter GifrCertificate Value: 
+100
+Enter number of items: 
+1
+Enter name of item 1: 
+abc
+Enter price of item 1: 
+200
+Your Gift Certificate abc Applied.
+Your Gift Certificate Balance: 0
+You have to pay amount: 100 using cash only.
+
+
+Enter GiftCertificate ID: 
+abc
+Enter GifrCertificate Value: 
+100
+Enter number of items: 
+1
+Enter name of item 1: 
+abc
+Enter price of item 1: 
+100
+You don't have to pay for this. It will be deducted from your gift card.
+Your Gift Certificate abc Applied.
+Your Gift Certificate Balance: 0
+No cashback is provided.
+
+
+Enter GiftCertificate ID: 
+abc
+Enter GifrCertificate Value: 
+100
+Enter number of items: 
+0
+You have not bought any items.
