@@ -1,0 +1,1 @@
+javac DecathlonPOS.java IndoorSports.java OutdoorSports.java IndoorDecorator.java OutdoorDecorator.java GamesOnTable.java BoardGames.java CourtGames.java AdventureGames.java StadiumGames.java Athletics.java Client.java

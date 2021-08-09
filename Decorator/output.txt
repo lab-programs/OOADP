@@ -1,0 +1,6 @@
+indoor sport: table tennis
+indoor sport: chess
+indoor sport: basketball
+outdoor sport: trekking
+outdoor sport: cricket
+outdoor sport: 100m sprint
