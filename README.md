@@ -761,7 +761,7 @@ public class Client {
 ```
 
 
-### 7. Façade (Structural)
+### 7. Abstract Factory (Creational)
 
 #### Question
 
@@ -887,4 +887,160 @@ public class Client {
         f.indoorRegular(IR.squash).display();
     }
 }
+```
+
+
+### 8. Decorator (Behavioural – Structural according to GoF)
+
+#### Question
+
+**Decorator (Behavioural – Structural according to GoF):** There is an existing 
+interface method in the Decathlon POS software system called ‘getCurrentStock’ 
+which is implemented by two concrete classes ‘IndoorSports’ and ‘OutdoorSports’, 
+to get the number of stocks for the sports items belonging to these respective 
+categories. On studying the Decathlon POS system, you as an analyst realize the 
+need to get sports stock update of various items within:
+IndoorSports - ‘GamesOnTable’ (e.g. Table Tennis, Billiards, Snooker etc.) 
+‘BoardGames’ (e.g. Carom, Chess etc.)
+‘CourtGames’ (e.g. Basketball, Badminton, Kabaddi etc.) OutdoorSports – 
+‘AdventureGames’ (e.g. trekking, para-gliding, bungee-
+jumping etc.)
+‘StadiumGames’ (e.g. cricket, football, baseball etc.) ‘Athletics’ 
+(e.g. different distances for running, high jump etc.)
+Use the Decorator pattern, decorating the ‘getCurrentStock’ method to
+Design and implement this scenario.
+
+#### Program
+
+```java
+public interface DecathlonPOS {
+    public String getCurrentStock();
+}
+public class IndoorSports implements DecathlonPOS {
+
+    @Override
+    public String getCurrentStock() {
+        // TODO Auto-generated method stub
+        return "indoor sport";
+    }
+    
+}
+public class OutdoorSports implements DecathlonPOS {
+
+    @Override
+    public String getCurrentStock() {
+        // TODO Auto-generated method stub
+        return "outdoor sport";
+    }
+    
+}
+public abstract class IndoorDecorator implements DecathlonPOS {
+    protected String game;
+    protected DecathlonPOS type;
+
+    public IndoorDecorator( String game ) {
+        this.game = game;
+        this.type = new IndoorSports();
+    }
+
+    @Override public String getCurrentStock() {
+        return this.type.getCurrentStock() + ": " + this.game;
+    }
+}
+public abstract class OutdoorDecorator implements DecathlonPOS {
+    protected String game;
+    protected DecathlonPOS type;
+
+    public OutdoorDecorator( String game ) {
+        this.game = game;
+        this.type = new OutdoorSports();
+    }
+
+    @Override public String getCurrentStock() {
+        return this.type.getCurrentStock() + ": " + this.game;
+    }
+}
+public class GamesOnTable extends IndoorDecorator {
+    public GamesOnTable(String game) {
+        super(game);
+        //TODO Auto-generated constructor stub
+    }
+}
+public class BoardGames extends IndoorDecorator {
+    public BoardGames(String game) {
+        super(game);
+        //TODO Auto-generated constructor stub
+    }
+}
+public class CourtGames extends IndoorDecorator {
+    public CourtGames(String game) {
+        super(game);
+        //TODO Auto-generated constructor stub
+    }
+}
+public class AdventureGames extends OutdoorDecorator {
+    public AdventureGames(String game) {
+        super(game);
+        //TODO Auto-generated constructor stub
+    }
+}
+public class StadiumGames extends OutdoorDecorator {
+    public StadiumGames(String game) {
+        super(game);
+        //TODO Auto-generated constructor stub
+    }
+}
+public class Athletics extends OutdoorDecorator {
+    public Athletics(String game) {
+        super(game);
+        //TODO Auto-generated constructor stub
+    }
+}
+public class Client {
+    private static void print( Object o ) {
+        System.out.println( o );
+    }
+    public static void main( String[] args ) {
+        TestDecorator(new GamesOnTable("table tennis"));
+        TestDecorator(new BoardGames("chess"));
+        TestDecorator(new CourtGames("basketball"));
+        TestDecorator(new AdventureGames("trekking"));
+        TestDecorator(new StadiumGames("cricket"));
+        TestDecorator(new Athletics("100m sprint"));
+    }
+    private static void TestDecorator( DecathlonPOS decorator ) {
+        print( decorator.getCurrentStock() );
+    }
+}
+```
+
+
+
+
+### 8. Template Method (Behavioural)
+
+#### Question
+
+**Template Method (Behavioural):** To keep up with the customer convenience 
+of online ordering Decathlon Chain of stores decides to have two modes of 
+order-processing, namely ‘online’ and ‘offline’. Both modes have the same 
+processing steps for order- processing, namely ‘selectItem’, ‘doPayment’ 
+and ‘doDelivery’. But, the way these steps are done varies between the two 
+modes.
+selectItem – 
+online – gives tabular depiction of price comparison of the item chosen. 
+Offline – allows trying out of the items in the store 
+doPayment – 
+online – net-banking payment; 
+offline – pays through cash / swipe-card 
+doDelivery – 
+online – needs to pay the charges for shipping & delivery address; 
+offline – collect at the counter.
+Show how you as the analyst will use the Template Method pattern to
+design and implement this.
+
+#### Program
+
+```java
+
 ```
